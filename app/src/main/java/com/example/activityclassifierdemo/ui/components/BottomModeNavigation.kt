@@ -20,7 +20,7 @@ fun BottomModeNavigation(
             icon = { Text("🔮") }
         )
         NavigationBarItem(
-            label = { Text("Training") },
+            label = { Text("Recorder") },
             selected = !isInferenceMode,
             onClick = { onModeChanged(false) },
             icon = { Text("📝") }
@@ -43,6 +43,7 @@ private fun BottomModeNavigationInferencePreview() {
         BottomModeNavigation(isInferenceMode = true, onModeChanged = {})
     }
 }
+
 
 
 
