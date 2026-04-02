@@ -6,9 +6,8 @@ Input: 8 channels (acc_x, acc_y, acc_z, gyro_x, gyro_y, gyro_z, acc_mag_sq, gyro
 Output: 3 classes (STANDING=0, WALKING=1, JUMPING=2)
 """
 
-import random
-
 import numpy as np
+import random
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -27,16 +26,15 @@ PLOT_PATH = "model/training_plots.png"
 
 SEED = 42
 BATCH_SIZE = 32
-NUM_EPOCHS = 200
+NUM_EPOCHS = 150  # Sufficient for convergence
 LEARNING_RATE = 1e-3
-PATIENCE = 10
+PATIENCE = 10  # LR scheduler patience for stability
 MIN_LR = 1e-6
-EARLY_STOP_PATIENCE = 15  # Stop if val acc doesn't improve for 15 epochs
+EARLY_STOP_PATIENCE = 5  # Aggressive to catch peak early (typically epoch 2-3)
 
 torch.manual_seed(SEED)
 np.random.seed(SEED)
 random.seed(SEED)
-
 
 # ============================================================================
 # Load Data
@@ -61,7 +59,6 @@ val_dataset = TensorDataset(X_val, y_val)
 train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
-
 # ============================================================================
 # Setup Device
 # ============================================================================
@@ -73,14 +70,13 @@ else:
     device = torch.device("cpu")
 print(f"Device: {device}")
 
-
 # ============================================================================
 # Initialize Model, Loss, Optimizer
 # ============================================================================
 input_channels = X_train.shape[2]  # Should be 8
 num_classes = len(torch.unique(y_train))  # Should be 3
 
-model = HAR_CNN1D(input_size=input_channels, num_classes=num_classes).to(device)
+model = HAR_CNN1D(input_size=input_channels, num_classes=num_classes, dropout=0.25).to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 scheduler = optim.lr_scheduler.ReduceLROnPlateau(
@@ -96,11 +92,11 @@ best_acc = 0
 epochs_without_improvement = 0
 graph = TrainingGraph(save_path=PLOT_PATH)
 
-
 # ============================================================================
 # Training Loop
 # ============================================================================
-print(f"{'Epoch':>5} | {'LR':>8} | {'Train Loss':>10} | {'Train Acc':>9} | {'Val Loss':>9} | {'Val Acc':>7}")
+print(
+    f"{'Epoch':>5} | {'LR':>8} | {'Train Loss':>10} | {'Train Acc':>9} | {'Val Loss':>9} | {'Val Acc':>7}")
 print('-' * 65)
 
 for epoch in range(start_epoch, NUM_EPOCHS):
@@ -145,10 +141,11 @@ for epoch in range(start_epoch, NUM_EPOCHS):
 
     avg_val_loss = val_loss / val_total
     val_acc = 100 * val_correct / val_total
-    
+
     current_lr = optimizer.param_groups[0]['lr']
-    
-    print(f"{epoch+1:5d} | {current_lr:.2e} | {avg_train_loss:10.4f} | {train_acc:9.2f} | {avg_val_loss:9.4f} | {val_acc:7.2f}")
+
+    print(
+        f"{epoch + 1:5d} | {current_lr:.2e} | {avg_train_loss:10.4f} | {train_acc:9.2f} | {avg_val_loss:9.4f} | {val_acc:7.2f}")
 
     # Update graph
     graph.update(epoch + 1, avg_train_loss, avg_val_loss, train_acc, val_acc)
@@ -185,7 +182,8 @@ for epoch in range(start_epoch, NUM_EPOCHS):
 
     # Early stopping: check if validation accuracy hasn't improved
     if epochs_without_improvement >= EARLY_STOP_PATIENCE:
-        print(f"\nEarly stopping: No improvement in validation accuracy for {EARLY_STOP_PATIENCE} epochs")
+        print(
+            f"\nEarly stopping: No improvement in validation accuracy for {EARLY_STOP_PATIENCE} epochs")
         print(f"Best validation accuracy: {best_acc:.2f}%")
         break
 

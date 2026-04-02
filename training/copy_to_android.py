@@ -70,7 +70,7 @@ if not assets_path.parent.exists():
     exit(1)
 
 success_count = 0
-total_count = 3
+total_count = 2
 
 # Copy ONNX model
 print("1. ONNX Model:")
@@ -78,14 +78,8 @@ if copy_file(ONNX_MODEL_PATH, ANDROID_ASSETS_DIR, "har_model.onnx"):
     success_count += 1
 print()
 
-# Copy ONNX model data file
-print("2. ONNX Model Data:")
-if copy_file(ONNX_MODEL_DATA_PATH, ANDROID_ASSETS_DIR, "har_model.onnx.data"):
-    success_count += 1
-print()
-
 # Copy normalization parameters
-print("3. Normalization Parameters:")
+print("2. Normalization Parameters:")
 if copy_file(NORMALIZATION_PARAMS_PATH, ANDROID_ASSETS_DIR, "normalization_params.json"):
     success_count += 1
 print()
@@ -98,6 +92,12 @@ print("=" * 70)
 if success_count == total_count:
     print("✓ All files copied to Android assets folder!")
     print(f"  Location: {assets_path.absolute()}")
+    print()
+    print("Files copied:")
+    print("  ✓ har_model.onnx (self-contained ONNX model)")
+    print("  ✓ normalization_params.json (z-score normalization)")
+    print()
+    print("Note: har_model.onnx.data is not needed (model is self-contained)")
     print()
     print("You can now use these files in your Android app for inference.")
 else:

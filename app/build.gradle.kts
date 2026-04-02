@@ -59,10 +59,10 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    implementation("com.google.dagger:hilt-android:2.57.1")
-    ksp("com.google.dagger:hilt-android-compiler:2.57.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
 
-    implementation("com.microsoft.onnxruntime:onnxruntime-android:1.23.1")
-    implementation("com.google.code.gson:gson:2.10.1")
+    implementation(libs.onnxruntime.android)
+    implementation(libs.tensorflow.lite)
 }

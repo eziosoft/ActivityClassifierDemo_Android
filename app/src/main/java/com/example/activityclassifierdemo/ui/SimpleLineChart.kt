@@ -16,6 +16,9 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.unit.dp
+import com.example.activityclassifierdemo.ui.theme.GraphX
+import com.example.activityclassifierdemo.ui.theme.GraphY
+import com.example.activityclassifierdemo.ui.theme.GraphZ
 import java.util.Locale
 
 /**
@@ -163,9 +166,9 @@ fun SimpleLineChart(
         data,
         modifier,
         listOf(
-            xIndex to Color.Red,
-            yIndex to Color.Green,
-            zIndex to Color.Blue
+            xIndex to GraphX,
+            yIndex to GraphY,
+            zIndex to GraphZ
         )
     )
 }
