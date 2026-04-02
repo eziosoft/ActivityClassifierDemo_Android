@@ -25,8 +25,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.activityclassifierdemo.domain.usecase.InferenceResult
+import com.example.activityclassifierdemo.ui.components.BottomModeNavigation
 import com.example.activityclassifierdemo.ui.components.ExportDialog
-import com.example.activityclassifierdemo.ui.components.ModeToggle
 import com.example.activityclassifierdemo.ui.components.SensorDisplaySection
 import com.example.activityclassifierdemo.ui.components.TrainingRecordingCard
 import com.example.activityclassifierdemo.ui.theme.ActivityClassifierDemoTheme
@@ -101,7 +101,15 @@ fun SensorScreenContent(
         ExportDialog(csvData = csvData, onDismiss = onDismiss, onShare = onShare)
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            val onToggle = remember {
+                { enabled: Boolean -> onEvent(ScreenEvent.ToggleInferenceMode(enabled)) }
+            }
+            BottomModeNavigation(isInferenceMode = uiState.isInferenceMode, onModeChanged = onToggle)
+        }
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.background)
@@ -109,14 +117,6 @@ fun SensorScreenContent(
                 .padding(innerPadding)
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            // Mode toggle
-            val onToggle =
-                remember {
-                    { enabled: Boolean -> onEvent(ScreenEvent.ToggleInferenceMode(enabled)) }
-                }
-            ModeToggle(isInferenceMode = uiState.isInferenceMode, onToggle = onToggle)
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             // Training recorder
             if (!uiState.isInferenceMode) {
