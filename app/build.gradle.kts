@@ -64,5 +64,6 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     implementation("com.microsoft.onnxruntime:onnxruntime-android:1.23.1")
+    implementation("org.tensorflow:tensorflow-lite:2.17.0")
     implementation("com.google.code.gson:gson:2.10.1")
 }

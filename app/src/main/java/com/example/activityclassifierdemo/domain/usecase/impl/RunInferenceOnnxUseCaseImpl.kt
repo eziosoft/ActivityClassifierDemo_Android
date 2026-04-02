@@ -1,10 +1,13 @@
-package com.example.activityclassifierdemo.domain.usecase
+package com.example.activityclassifierdemo.domain.usecase.impl
 
 import ai.onnxruntime.OnnxTensor
 import ai.onnxruntime.OrtEnvironment
 import ai.onnxruntime.OrtSession
 import android.content.Context
 import android.util.Log
+import com.example.activityclassifierdemo.domain.usecase.InferenceResult
+import com.example.activityclassifierdemo.domain.usecase.InferenceUseCase
+import com.example.activityclassifierdemo.domain.usecase.LoadNormalizationParamsUseCase
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +22,7 @@ import java.nio.FloatBuffer
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private const val TAG = "RunInferenceUseCase"
+private const val TAG = "RunInferenceOnnxUseCaseImpl"
 private const val MODEL_FILE = "har_model.onnx"
 private const val MODEL_DATA_FILE = "har_model.onnx.data"
 private const val BATCH_SIZE = 1
@@ -28,39 +31,6 @@ private const val NUM_FEATURES = 8
 private const val INPUT_NAME = "input"
 
 
-/** Inference result containing the predicted activity and per-class probabilities. */
-data class InferenceResult(
-    val activityId: Int,
-    val activityName: String,
-    val confidence: Float,
-    val probabilities: FloatArray
-) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        other as InferenceResult
-        return activityId == other.activityId &&
-                activityName == other.activityName &&
-                confidence == other.confidence &&
-                probabilities.contentEquals(other.probabilities)
-    }
-
-    /**
-     * Custom hashCode required because [probabilities] is a FloatArray.
-     * Data class default uses reference-based hashing for arrays, but we override equals()
-     * to use content-based comparison. Must use contentHashCode() to satisfy the
-     * equals-hashCode contract: equal objects must have equal hash codes.
-     * Without this, the object would behave incorrectly in hash-based collections.
-     */
-    override fun hashCode(): Int {
-        var result = activityId
-        result = 31 * result + activityName.hashCode()
-        result = 31 * result + confidence.hashCode()
-        result = 31 * result + probabilities.contentHashCode()
-        return result
-    }
-}
-
 /**
  * Loads the HAR ONNX model and normalization parameters from assets,
  * then runs activity classification inference on 128-sample sensor windows.
@@ -68,14 +38,14 @@ data class InferenceResult(
  * Uses NNAPI hardware acceleration when available, falls back to CPU.
  */
 @Singleton
-class RunInferenceUseCase @Inject constructor(
+class RunInferenceOnnxUseCaseImpl @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val loadNormalizationParamsUseCase: LoadNormalizationParamsUseCase
-) {
+) : InferenceUseCase {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     private val _isModelLoaded = MutableStateFlow(false)
-    val isModelLoaded: StateFlow<Boolean> = _isModelLoaded.asStateFlow()
+    override val isModelLoaded: StateFlow<Boolean> = _isModelLoaded.asStateFlow()
 
     private var ortEnvironment: OrtEnvironment? = null
     private var ortSession: OrtSession? = null
@@ -144,7 +114,7 @@ class RunInferenceUseCase @Inject constructor(
      * Runs inference on a 128×8 sensor window.
      * Returns null if the model is not yet loaded or an error occurs.
      */
-    suspend fun runInference(window: Array<FloatArray>): InferenceResult? = withContext(Dispatchers.Default) {
+    override suspend fun runInference(window: Array<FloatArray>): InferenceResult? = withContext(Dispatchers.Default) {
         // Guard: Model must be loaded before inference
         val session = ortSession ?: return@withContext null
 
