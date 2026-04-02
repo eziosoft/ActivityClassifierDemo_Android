@@ -95,15 +95,27 @@ fun CurrentActivityCard(currentActivity: InferenceResult?, movementLabels: List<
 
                 if (currentActivity.probabilities.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(16.dp))
-
-                    Text(
-                        text = "Activity Breakdown",
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        modifier = Modifier.padding(start = 4.dp)
-                    )
-
+                    
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Activity Breakdown",
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            modifier = Modifier.padding(start = 4.dp)
+                        )
+                        Text(
+                            text = "⚡ ${currentActivity.inferenceTimeMs}ms",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f),
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                    
                     Spacer(modifier = Modifier.height(10.dp))
 
                     movementLabels.forEachIndexed { index, labelData ->

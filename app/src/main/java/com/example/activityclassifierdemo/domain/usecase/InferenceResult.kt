@@ -5,7 +5,8 @@ data class InferenceResult(
     val activityId: Int,
     val activityName: String,
     val confidence: Float,
-    val probabilities: FloatArray
+    val probabilities: FloatArray,
+    val inferenceTimeMs: Long = 0L
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -14,7 +15,8 @@ data class InferenceResult(
         return activityId == other.activityId &&
                 activityName == other.activityName &&
                 confidence == other.confidence &&
-                probabilities.contentEquals(other.probabilities)
+                probabilities.contentEquals(other.probabilities) &&
+                inferenceTimeMs == other.inferenceTimeMs
     }
 
     /**
