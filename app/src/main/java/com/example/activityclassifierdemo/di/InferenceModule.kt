@@ -23,7 +23,7 @@ object InferenceModule {
      * - [InferenceBackend.ONNX] for ONNX Runtime (har_model.onnx)
      * - [InferenceBackend.TFLITE] for TensorFlow Lite (har_model.tflite)
      */
-    private val SELECTED_BACKEND = InferenceBackend.TFLITE
+    private val SELECTED_BACKEND = InferenceBackend.ONNX
 
     @Provides
     @Singleton
