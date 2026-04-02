@@ -37,30 +37,30 @@ fun CurrentActivityCard(currentActivity: InferenceResult?, movementLabels: List<
             }
         )
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = "Current Activity",
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-
+        Column(modifier = Modifier.padding(12.dp)) {
             if (currentActivity != null) {
-                Text(
-                    text = currentActivity.activityName,
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "${(currentActivity.confidence * 100).toInt()}% confidence",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = currentActivity.activityName,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                        Text(
+                            text = "${(currentActivity.confidence * 100).toInt()}%",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                        )
+                    }
+                }
 
                 if (currentActivity.probabilities.isNotEmpty()) {
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
                     movementLabels.forEachIndexed { index, labelData ->
                         if (index < currentActivity.probabilities.size) {
                             val prob = currentActivity.probabilities[index]
@@ -73,27 +73,25 @@ fun CurrentActivityCard(currentActivity: InferenceResult?, movementLabels: List<
                                 Text(
                                     text = labelData.label,
                                     style = MaterialTheme.typography.labelSmall,
-                                    modifier = Modifier.width(80.dp)
+                                    modifier = Modifier.width(70.dp)
                                 )
                                 LinearProgressIndicator(
                                     progress = { prob },
                                     modifier = Modifier
                                         .weight(1f)
-                                        .height(8.dp)
-                                        .clip(RoundedCornerShape(4.dp)),
+                                        .height(6.dp)
+                                        .clip(RoundedCornerShape(3.dp)),
                                     color = if (isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
                                 )
                                 Text(
                                     text = "${(prob * 100).toInt()}%",
                                     style = MaterialTheme.typography.labelSmall,
-                                    modifier = Modifier.width(40.dp),
+                                    modifier = Modifier.width(35.dp),
                                     fontWeight = if (isActive) FontWeight.Bold else FontWeight.Normal
                                 )
                             }
-                            if (index <
-                                movementLabels.size - 1
-                            ) {
-                                Spacer(modifier = Modifier.height(6.dp))
+                            if (index < movementLabels.size - 1) {
+                                Spacer(modifier = Modifier.height(4.dp))
                             }
                         }
                     }
@@ -101,7 +99,7 @@ fun CurrentActivityCard(currentActivity: InferenceResult?, movementLabels: List<
             } else {
                 Text(
                     text = "Waiting for data...",
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

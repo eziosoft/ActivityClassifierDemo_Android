@@ -47,86 +47,88 @@ fun TrainingRecordingCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
-            Text(
-                text = "Training Data Recorder",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "Total samples: $recordedCount",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "Data Recorder",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "$recordedCount samples",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                if (isRecording && currentLabelId != null) {
+                    Text(
+                        text = "🔴 REC",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = Color.Red,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+
             if (labelCounts.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = labelCounts.entries.joinToString(", ") { (id, count) ->
+                    text = labelCounts.entries.joinToString(" • ") { (id, count) ->
                         "${movementLabels.find { it.id == id }?.label ?: "ID:$id"}: $count"
                     },
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            Spacer(modifier = Modifier.height(8.dp))
 
-            if (isRecording && currentLabelId != null) {
-                Text(
-                    text = "🔴 Recording: ${movementLabels.find {
-                        it.id == currentLabelId
-                    }?.label ?: "ID:$currentLabelId"}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Red,
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-            }
+            Spacer(modifier = Modifier.height(10.dp))
 
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                movementLabels.chunked(2).forEach { rowLabels ->
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier.fillMaxWidth()
+            // Recording buttons - single row for all activities
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                movementLabels.forEach { labelData ->
+                    val isCurrentlyRecording = isRecording && currentLabelId == labelData.id
+                    Surface(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(56.dp)
+                            .pointerInput(labelData.id, isRecording) {
+                                detectTapGestures(
+                                    onPress = {
+                                        if (!isRecording) {
+                                            onStartRecording(labelData.id)
+                                            tryAwaitRelease()
+                                            onStopRecording()
+                                        }
+                                    }
+                                )
+                            },
+                        color = if (isCurrentlyRecording) Color.Red else MaterialTheme.colorScheme.primary,
+                        shape = RoundedCornerShape(8.dp),
+                        contentColor = Color.White
                     ) {
-                        rowLabels.forEach { labelData ->
-                            val isCurrentlyRecording = isRecording && currentLabelId == labelData.id
-                            Surface(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(48.dp)
-                                    .pointerInput(labelData.id, isRecording) {
-                                        detectTapGestures(
-                                            onPress = {
-                                                if (!isRecording) {
-                                                    onStartRecording(labelData.id)
-                                                    tryAwaitRelease()
-                                                    onStopRecording()
-                                                }
-                                            }
-                                        )
-                                    },
-                                color = if (isCurrentlyRecording) Color.Red else MaterialTheme.colorScheme.primary,
-                                shape = RoundedCornerShape(8.dp),
-                                contentColor = Color.White
-                            ) {
-                                Box(
-                                    contentAlignment = Alignment.Center,
-                                    modifier = Modifier.fillMaxSize()
-                                ) {
-                                    Text(
-                                        text = labelData.label,
-                                        style = MaterialTheme.typography.labelMedium,
-                                        fontWeight = if (isCurrentlyRecording) FontWeight.Bold else FontWeight.Normal
-                                    )
-                                }
-                            }
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            Text(
+                                text = labelData.label,
+                                style = MaterialTheme.typography.labelMedium,
+                                fontWeight = if (isCurrentlyRecording) FontWeight.Bold else FontWeight.Normal
+                            )
                         }
-                        if (rowLabels.size == 1) Spacer(modifier = Modifier.weight(1f))
                     }
                 }
             }
 
             if (isRecording) {
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(6.dp))
                 Button(
                     onClick = onStopRecording,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
@@ -134,9 +136,9 @@ fun TrainingRecordingCard(
                 ) { Text("Stop Recording") }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(6.dp))
             Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 OutlinedButton(
@@ -144,14 +146,14 @@ fun TrainingRecordingCard(
                     modifier = Modifier.weight(1f),
                     enabled = recordedCount > 0
                 ) {
-                    Text("Export CSV")
+                    Text("Export")
                 }
                 OutlinedButton(
                     onClick = onClear,
                     modifier = Modifier.weight(1f),
                     enabled = recordedCount > 0
                 ) {
-                    Text("Clear Data")
+                    Text("Clear")
                 }
             }
         }

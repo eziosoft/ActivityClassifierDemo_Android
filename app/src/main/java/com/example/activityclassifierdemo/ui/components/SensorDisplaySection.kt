@@ -1,6 +1,7 @@
 package com.example.activityclassifierdemo.ui.components
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,6 +19,9 @@ import com.example.activityclassifierdemo.ui.SingleLineChart
 import com.example.activityclassifierdemo.ui.theme.ActivityClassifierDemoTheme
 import com.example.activityclassifierdemo.ui.theme.GraphAccMag
 import com.example.activityclassifierdemo.ui.theme.GraphGyroMag
+import com.example.activityclassifierdemo.ui.theme.GraphX
+import com.example.activityclassifierdemo.ui.theme.GraphY
+import com.example.activityclassifierdemo.ui.theme.GraphZ
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -37,11 +41,11 @@ fun SensorDisplaySection(
                 currentActivity = sensorState.currentActivity,
                 movementLabels = movementLabels
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
         }
 
         // Accelerometer chart
-        ChartLabel(text = "Linear Acceleration (m/s²)")
+        ChartLabel(text = "Acceleration")
         SimpleLineChart(
             data = sensorState.accelerometerData,
             modifier = Modifier
@@ -52,12 +56,9 @@ fun SensorDisplaySection(
         Spacer(modifier = Modifier.height(12.dp))
 
         // Gyroscope chart
-        ChartLabel(text = "Gyroscope (rad/s)")
+        ChartLabel(text = "Gyroscope")
         SimpleLineChart(
             data = sensorState.gyroscopeData,
-            xIndex = 0,
-            yIndex = 1,
-            zIndex = 2,
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
@@ -66,7 +67,7 @@ fun SensorDisplaySection(
         Spacer(modifier = Modifier.height(12.dp))
 
         // Acceleration magnitude chart
-        ChartLabel(text = "Acceleration Magnitude (m²/s⁴)")
+        ChartLabel(text = "Acc Magnitude")
         SingleLineChart(
             data = sensorState.accMagnitudeData,
             lineColor = GraphAccMag,
@@ -78,7 +79,7 @@ fun SensorDisplaySection(
         Spacer(modifier = Modifier.height(12.dp))
 
         // Gyroscope magnitude chart
-        ChartLabel(text = "Rotation Magnitude (rad²/s²)")
+        ChartLabel(text = "Gyro Magnitude")
         SingleLineChart(
             data = sensorState.gyroMagnitudeData,
             lineColor = GraphGyroMag,
