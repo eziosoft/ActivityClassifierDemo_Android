@@ -4,7 +4,9 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.activityclassifierdemo.ui.theme.ActivityClassifierDemoTheme
 
 @Composable
@@ -12,18 +14,26 @@ fun BottomModeNavigation(
     isInferenceMode: Boolean,
     onModeChanged: (Boolean) -> Unit
 ) {
-    NavigationBar {
+    NavigationBar(
+        modifier = Modifier,
+        containerColor = androidx.compose.material3.MaterialTheme.colorScheme.surfaceVariant,
+        tonalElevation = 2.dp
+    ) {
         NavigationBarItem(
             label = { Text("Inference") },
             selected = isInferenceMode,
             onClick = { onModeChanged(true) },
-            icon = { Text("🔮") }
+            icon = { Text("🔮") },
+            alwaysShowLabel = true,
+            modifier = Modifier
         )
         NavigationBarItem(
             label = { Text("Recorder") },
             selected = !isInferenceMode,
             onClick = { onModeChanged(false) },
-            icon = { Text("📝") }
+            icon = { Text("📝") },
+            alwaysShowLabel = true,
+            modifier = Modifier
         )
     }
 }
@@ -43,9 +53,3 @@ private fun BottomModeNavigationInferencePreview() {
         BottomModeNavigation(isInferenceMode = true, onModeChanged = {})
     }
 }
-
-
-
-
-
-

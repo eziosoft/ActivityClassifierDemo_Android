@@ -30,8 +30,8 @@ import com.example.activityclassifierdemo.ui.components.ExportDialog
 import com.example.activityclassifierdemo.ui.components.SensorDisplaySection
 import com.example.activityclassifierdemo.ui.components.TrainingRecordingCard
 import com.example.activityclassifierdemo.ui.theme.ActivityClassifierDemoTheme
-import java.io.File
 import kotlinx.coroutines.flow.StateFlow
+import java.io.File
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Root screen — ViewModel injection and lifecycle setup.
