@@ -27,11 +27,11 @@ PLOT_PATH = "model/training_plots.png"
 
 SEED = 42
 BATCH_SIZE = 32
-NUM_EPOCHS = 200
-LEARNING_RATE = 1e-3
-PATIENCE = 10
+NUM_EPOCHS = 150  # Sufficient for convergence
+LEARNING_RATE = 1e-3  # Optimal from multi-config experiments (faster convergence)
+PATIENCE = 10  # LR scheduler patience for stability
 MIN_LR = 1e-6
-EARLY_STOP_PATIENCE = 15  # Stop if val acc doesn't improve for 15 epochs
+EARLY_STOP_PATIENCE = 5  # Aggressive to catch peak early (typically epoch 2-3)
 
 torch.manual_seed(SEED)
 np.random.seed(SEED)
@@ -80,7 +80,7 @@ print(f"Device: {device}")
 input_channels = X_train.shape[2]  # Should be 8
 num_classes = len(torch.unique(y_train))  # Should be 3
 
-model = HAR_CNN1D(input_size=input_channels, num_classes=num_classes).to(device)
+model = HAR_CNN1D(input_size=input_channels, num_classes=num_classes, dropout=0.25).to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 scheduler = optim.lr_scheduler.ReduceLROnPlateau(
