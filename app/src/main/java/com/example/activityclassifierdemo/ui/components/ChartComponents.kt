@@ -15,10 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.activityclassifierdemo.ui.theme.ActivityClassifierDemoTheme
+import com.example.activityclassifierdemo.ui.theme.GraphAccMag
+import com.example.activityclassifierdemo.ui.theme.GraphGyroMag
+import com.example.activityclassifierdemo.ui.theme.GraphX
+import com.example.activityclassifierdemo.ui.theme.GraphY
+import com.example.activityclassifierdemo.ui.theme.GraphZ
 
 @Composable
 fun ChartLabel(text: String) {
@@ -36,16 +40,16 @@ fun ChartLegend() {
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier.padding(bottom = 4.dp)
     ) {
-        LegendItem(color = Color.Red, label = "X")
-        LegendItem(color = Color.Green, label = "Y")
-        LegendItem(color = Color.Blue, label = "Z")
-        LegendItem(color = Color(0xFFFF6F00), label = "Acc mag")
-        LegendItem(color = Color(0xFF7B1FA2), label = "Gyro mag")
+        LegendItem(color = GraphX, label = "X")
+        LegendItem(color = GraphY, label = "Y")
+        LegendItem(color = GraphZ, label = "Z")
+        LegendItem(color = GraphAccMag, label = "Acc mag")
+        LegendItem(color = GraphGyroMag, label = "Gyro mag")
     }
 }
 
 @Composable
-fun LegendItem(color: Color, label: String) {
+fun LegendItem(color: androidx.compose.ui.graphics.Color, label: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Box(
             modifier = Modifier
@@ -82,7 +86,7 @@ private fun ChartLegendPreview() {
 @Composable
 private fun LegendItemPreview() {
     ActivityClassifierDemoTheme {
-        LegendItem(color = Color.Red, label = "X")
+        LegendItem(color = GraphX, label = "X")
     }
 }
 

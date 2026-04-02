@@ -2,22 +2,28 @@ package com.example.activityclassifierdemo.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// ── Teal palette ─────────────────────────────────────────────────────────────
-val Teal700  = Color(0xFF00796B)
-val Teal900  = Color(0xFF004D40)
-val Teal100  = Color(0xFFB2DFDB)
-val Teal50   = Color(0xFFE0F2F1)
-val Teal200  = Color(0xFF80CBC4)
+// ── Dark Theme - Main Colors ──────────────────────────────────────────────────
+val Background     = Color(0xFF121318)
+val Surface        = Color(0xFF1A1C23)
+val SurfaceContainer = Color(0xFF22252E)
+val OutlineVariant = Color(0xFF2E3240)
 
-// ── Blue palette ──────────────────────────────────────────────────────────────
-val Blue700  = Color(0xFF0288D1)
-val Blue900  = Color(0xFF01579B)
-val Blue100  = Color(0xFFB3E5FC)
-val Blue50   = Color(0xFFE1F5FE)
-val Blue200  = Color(0xFF81D4FA)
+val Primary        = Color(0xFF3E92FF)
+val Secondary      = Color(0xFF16CCAB)
+val Error          = Color(0xFFFF4F4F)
 
-// ── Neutral ───────────────────────────────────────────────────────────────────
-val Grey900  = Color(0xFF212121)
-val Grey800  = Color(0xFF424242)
-val Grey100  = Color(0xFFF5F5F5)
-val Grey50   = Color(0xFFFAFAFA)
+val OnBackground   = Color(0xFFF0F1F6)
+val OnSurfaceVariant = Color(0xFF888AA8)
+val Outline        = Color(0xFF4F546C)
+
+// ── Graph / Sensor Data Colors ───────────────────────────────────────────────
+val GraphX         = Color(0xFFFF5656)
+val GraphY         = Color(0xFF3BEF66)
+val GraphZ         = Color(0xFF4D8EFF)
+val GraphAccMag    = Color(0xFFFF8B22)
+val GraphGyroMag   = Color(0xFFAE5EFF)
+
+// ── Activity Recognition Colors ──────────────────────────────────────────────
+val ActivityStanding = Color(0xFF3E92FF)
+val ActivityWalking  = Color(0xFF16CCAB)
+val ActivityJumping  = Color(0xFFFF8B22)

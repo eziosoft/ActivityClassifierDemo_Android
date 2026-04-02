@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.activityclassifierdemo.domain.usecase.InferenceResult
@@ -17,8 +16,10 @@ import com.example.activityclassifierdemo.ui.SensorState
 import com.example.activityclassifierdemo.ui.SimpleLineChart
 import com.example.activityclassifierdemo.ui.SingleLineChart
 import com.example.activityclassifierdemo.ui.theme.ActivityClassifierDemoTheme
-import kotlinx.coroutines.flow.StateFlow
+import com.example.activityclassifierdemo.ui.theme.GraphAccMag
+import com.example.activityclassifierdemo.ui.theme.GraphGyroMag
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun SensorDisplaySection(
@@ -68,7 +69,7 @@ fun SensorDisplaySection(
         ChartLabel(text = "Acceleration Magnitude (m²/s⁴)")
         SingleLineChart(
             data = sensorState.accMagnitudeData,
-            lineColor = Color(0xFFFF6F00),
+            lineColor = GraphAccMag,
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
@@ -80,7 +81,7 @@ fun SensorDisplaySection(
         ChartLabel(text = "Rotation Magnitude (rad²/s²)")
         SingleLineChart(
             data = sensorState.gyroMagnitudeData,
-            lineColor = Color(0xFF7B1FA2),
+            lineColor = GraphGyroMag,
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
