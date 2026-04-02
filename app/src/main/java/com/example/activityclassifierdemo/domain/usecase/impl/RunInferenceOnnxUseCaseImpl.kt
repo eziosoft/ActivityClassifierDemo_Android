@@ -24,7 +24,6 @@ import javax.inject.Singleton
 
 private const val TAG = "RunInferenceOnnxUseCaseImpl"
 private const val MODEL_FILE = "har_model.onnx"
-private const val MODEL_DATA_FILE = "har_model.onnx.data"
 private const val BATCH_SIZE = 1
 private const val WINDOW_SIZE = 128
 private const val NUM_FEATURES = 8
@@ -66,10 +65,10 @@ class RunInferenceOnnxUseCaseImpl @Inject constructor(
             stdArray = normData.std.toFloatArray()
             activityLabels = normData.activityLabels
 
-            // Extract model files to internal storage
-            // ONNX Runtime requires both files on the filesystem (not in APK assets)
-            listOf(MODEL_FILE, MODEL_DATA_FILE).forEach { name ->
-                context.assets.open(name).use { it.copyTo(File(context.filesDir, name).outputStream()) }
+            // Extract model file to internal storage
+            // ONNX Runtime requires the model file on the filesystem (not in APK assets)
+            context.assets.open(MODEL_FILE).use { 
+                it.copyTo(File(context.filesDir, MODEL_FILE).outputStream()) 
             }
 
             // Create ONNX session with NNAPI acceleration
