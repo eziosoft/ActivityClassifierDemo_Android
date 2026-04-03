@@ -1,4 +1,4 @@
-package com.example.activityclassifierdemo.ui.theme
+package com.example.activityclassifierdemo.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

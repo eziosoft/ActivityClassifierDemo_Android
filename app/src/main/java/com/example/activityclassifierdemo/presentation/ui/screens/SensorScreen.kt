@@ -1,4 +1,4 @@
-package com.example.activityclassifierdemo.ui
+package com.example.activityclassifierdemo.presentation.ui.screens
 
 import android.content.Context
 import android.content.Intent
@@ -25,11 +25,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.activityclassifierdemo.domain.usecase.InferenceResult
-import com.example.activityclassifierdemo.ui.components.BottomModeNavigation
-import com.example.activityclassifierdemo.ui.components.ExportDialog
-import com.example.activityclassifierdemo.ui.components.SensorDisplaySection
-import com.example.activityclassifierdemo.ui.components.TrainingRecordingCard
-import com.example.activityclassifierdemo.ui.theme.ActivityClassifierDemoTheme
+import com.example.activityclassifierdemo.presentation.ui.components.BottomModeNavigation
+import com.example.activityclassifierdemo.presentation.ui.components.ExportDialog
+import com.example.activityclassifierdemo.presentation.ui.components.SensorDisplaySection
+import com.example.activityclassifierdemo.presentation.ui.components.TrainingRecordingCard
+import com.example.activityclassifierdemo.presentation.theme.ActivityClassifierDemoTheme
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.io.File
 
@@ -191,7 +192,7 @@ private fun SensorScreenContentPreview() {
         )
     )
 
-    val mockSensorStateFlow = kotlinx.coroutines.flow.MutableStateFlow(mockSensorState)
+    val mockSensorStateFlow = MutableStateFlow(mockSensorState)
 
     ActivityClassifierDemoTheme {
         SensorScreenContent(

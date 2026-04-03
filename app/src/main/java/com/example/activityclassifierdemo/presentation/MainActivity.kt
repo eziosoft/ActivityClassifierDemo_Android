@@ -1,12 +1,12 @@
-package com.example.activityclassifierdemo
+package com.example.activityclassifierdemo.presentation
 
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.activityclassifierdemo.ui.SensorScreen
-import com.example.activityclassifierdemo.ui.theme.ActivityClassifierDemoTheme
+import com.example.activityclassifierdemo.presentation.ui.screens.SensorScreen
+import com.example.activityclassifierdemo.presentation.theme.ActivityClassifierDemoTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

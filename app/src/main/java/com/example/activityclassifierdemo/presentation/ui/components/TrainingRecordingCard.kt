@@ -1,4 +1,4 @@
-package com.example.activityclassifierdemo.ui.components
+package com.example.activityclassifierdemo.presentation.ui.components
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -27,8 +27,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.activityclassifierdemo.ui.Labels
-import com.example.activityclassifierdemo.ui.theme.ActivityClassifierDemoTheme
+import com.example.activityclassifierdemo.presentation.theme.ActivityClassifierDemoTheme
+import com.example.activityclassifierdemo.presentation.ui.screens.Labels
 
 @Composable
 fun TrainingRecordingCard(

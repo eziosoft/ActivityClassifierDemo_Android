@@ -1,4 +1,4 @@
-package com.example.activityclassifierdemo.ui
+package com.example.activityclassifierdemo.presentation.ui.components
 
 import android.graphics.Paint
 import androidx.compose.foundation.Canvas
@@ -16,9 +16,9 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.unit.dp
-import com.example.activityclassifierdemo.ui.theme.GraphX
-import com.example.activityclassifierdemo.ui.theme.GraphY
-import com.example.activityclassifierdemo.ui.theme.GraphZ
+import com.example.activityclassifierdemo.presentation.theme.GraphX
+import com.example.activityclassifierdemo.presentation.theme.GraphY
+import com.example.activityclassifierdemo.presentation.theme.GraphZ
 import java.util.Locale
 
 /**

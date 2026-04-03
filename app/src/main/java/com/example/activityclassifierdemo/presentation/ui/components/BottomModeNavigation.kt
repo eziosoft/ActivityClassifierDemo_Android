@@ -1,5 +1,6 @@
-package com.example.activityclassifierdemo.ui.components
+package com.example.activityclassifierdemo.presentation.ui.components
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -7,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.activityclassifierdemo.ui.theme.ActivityClassifierDemoTheme
+import com.example.activityclassifierdemo.presentation.theme.ActivityClassifierDemoTheme
 
 @Composable
 fun BottomModeNavigation(
@@ -16,7 +17,7 @@ fun BottomModeNavigation(
 ) {
     NavigationBar(
         modifier = Modifier,
-        containerColor = androidx.compose.material3.MaterialTheme.colorScheme.surfaceVariant,
+        containerColor = MaterialTheme.colorScheme.surfaceVariant,
         tonalElevation = 2.dp
     ) {
         NavigationBarItem(

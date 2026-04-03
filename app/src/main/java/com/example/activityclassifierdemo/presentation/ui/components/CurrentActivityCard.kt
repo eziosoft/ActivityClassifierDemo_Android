@@ -1,4 +1,4 @@
-package com.example.activityclassifierdemo.ui.components
+package com.example.activityclassifierdemo.presentation.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,11 +28,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.activityclassifierdemo.domain.usecase.InferenceResult
-import com.example.activityclassifierdemo.ui.Labels
-import com.example.activityclassifierdemo.ui.theme.ActivityClassifierDemoTheme
-import com.example.activityclassifierdemo.ui.theme.ActivityJumping
-import com.example.activityclassifierdemo.ui.theme.ActivityStanding
-import com.example.activityclassifierdemo.ui.theme.ActivityWalking
+import com.example.activityclassifierdemo.presentation.theme.ActivityClassifierDemoTheme
+import com.example.activityclassifierdemo.presentation.theme.ActivityJumping
+import com.example.activityclassifierdemo.presentation.theme.ActivityStanding
+import com.example.activityclassifierdemo.presentation.theme.ActivityWalking
+import com.example.activityclassifierdemo.presentation.ui.screens.Labels
 
 @Composable
 fun CurrentActivityCard(currentActivity: InferenceResult?, movementLabels: List<Labels>) {

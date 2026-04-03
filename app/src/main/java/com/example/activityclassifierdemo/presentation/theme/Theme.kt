@@ -1,4 +1,4 @@
-package com.example.activityclassifierdemo.ui.theme
+package com.example.activityclassifierdemo.presentation.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme

@@ -1,4 +1,4 @@
-package com.example.activityclassifierdemo.ui.components
+package com.example.activityclassifierdemo.presentation.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,14 +15,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.activityclassifierdemo.ui.theme.ActivityClassifierDemoTheme
-import com.example.activityclassifierdemo.ui.theme.GraphAccMag
-import com.example.activityclassifierdemo.ui.theme.GraphGyroMag
-import com.example.activityclassifierdemo.ui.theme.GraphX
-import com.example.activityclassifierdemo.ui.theme.GraphY
-import com.example.activityclassifierdemo.ui.theme.GraphZ
+import com.example.activityclassifierdemo.presentation.theme.ActivityClassifierDemoTheme
+import com.example.activityclassifierdemo.presentation.theme.GraphAccMag
+import com.example.activityclassifierdemo.presentation.theme.GraphGyroMag
+import com.example.activityclassifierdemo.presentation.theme.GraphX
+import com.example.activityclassifierdemo.presentation.theme.GraphY
+import com.example.activityclassifierdemo.presentation.theme.GraphZ
 
 @Composable
 fun ChartLabel(text: String) {
@@ -49,7 +50,7 @@ fun ChartLegend() {
 }
 
 @Composable
-fun LegendItem(color: androidx.compose.ui.graphics.Color, label: String) {
+fun LegendItem(color: Color, label: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Box(
             modifier = Modifier

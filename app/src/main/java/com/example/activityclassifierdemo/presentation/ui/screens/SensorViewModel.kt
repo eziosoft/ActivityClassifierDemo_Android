@@ -1,4 +1,4 @@
-package com.example.activityclassifierdemo.ui
+package com.example.activityclassifierdemo.presentation.ui.screens
 
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel

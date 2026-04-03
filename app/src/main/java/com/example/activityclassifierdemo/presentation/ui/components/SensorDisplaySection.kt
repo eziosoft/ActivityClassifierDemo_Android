@@ -1,7 +1,6 @@
-package com.example.activityclassifierdemo.ui.components
+package com.example.activityclassifierdemo.presentation.ui.components
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,16 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.activityclassifierdemo.domain.usecase.InferenceResult
-import com.example.activityclassifierdemo.ui.Labels
-import com.example.activityclassifierdemo.ui.SensorState
-import com.example.activityclassifierdemo.ui.SimpleLineChart
-import com.example.activityclassifierdemo.ui.SingleLineChart
-import com.example.activityclassifierdemo.ui.theme.ActivityClassifierDemoTheme
-import com.example.activityclassifierdemo.ui.theme.GraphAccMag
-import com.example.activityclassifierdemo.ui.theme.GraphGyroMag
-import com.example.activityclassifierdemo.ui.theme.GraphX
-import com.example.activityclassifierdemo.ui.theme.GraphY
-import com.example.activityclassifierdemo.ui.theme.GraphZ
+import com.example.activityclassifierdemo.presentation.theme.ActivityClassifierDemoTheme
+import com.example.activityclassifierdemo.presentation.ui.screens.Labels
+import com.example.activityclassifierdemo.presentation.ui.screens.SensorState
+import com.example.activityclassifierdemo.presentation.theme.GraphAccMag
+import com.example.activityclassifierdemo.presentation.theme.GraphGyroMag
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
